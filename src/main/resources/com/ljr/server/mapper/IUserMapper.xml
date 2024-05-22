@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ljr.server.mapper.IUserMapper">
+    <insert id="add">
+        insert into users ( name, pwd, gender, email, remarke, signature, head_Img, type, birthday)
+            value (#{name},#{pwd},#{gender},#{email}.#{remarke},#{signature},#{headImg},#{type},#{birthday})
+    </insert>
+
+    <update id="update">
+        update users
+        <set>
+            <if test="pwd != '' and pwd != null">
+                pwd = #{pwd},
+            </if>
+            <if test="gender != '' and gender != null">
+                gender = #{gender},
+            </if>
+            <if test="email != '' and email != null">
+                email = #{email},
+            </if>
+            <if test="remarke != '' and remarke != null">
+                remarke = #{remarke},
+            </if>
+            <if test="signature != '' and signature != null">
+                signature = #{signature},
+            </if>
+            <if test="headImg != '' and headImg != null">
+                head_img = #{headImg},
+            </if>
+            <if test="type != '' and type != null">
+                type = #{type},
+            </if>
+            <if test="birthday != null">
+                birthday = #{birthday},
+            </if>
+            <if test="state != '' and state != null">
+                state = #{state},
+            </if>
+            <if test="lastExit != null">
+                last_exit = #{lastExit},
+            </if>
+            <if test="lastLogin != null and lastLogin != null">
+                last_login = #{lastLogin}
+            </if>
+        </set>
+        where name  = #{name}
+    </update>
+    <delete id="delete">
+        delete  from users where id = #{userId}
+    </delete>
+
+
+    <select id="queryById" resultType="com.ljr.server.entity.Users">
+        select * from users where id = #{userId}
+    </select>
+    <select id="queryAll" resultType="com.ljr.server.entity.Users">
+        select * from users
+    </select>
+    <select id="checkNameAndPwd" resultType="com.ljr.server.entity.Users">
+        select * from users
+        where name = #{userName} AND pwd = #{password}
+    </select>
+    <select id="queryByName" resultType="com.ljr.server.entity.Users">
+        select * from users
+        where name = #{userName}
+    </select>
+
+</mapper>
